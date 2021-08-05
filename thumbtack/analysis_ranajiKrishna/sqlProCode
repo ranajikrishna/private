@@ -1,0 +1,55 @@
+/*
+Author: Ranaji Krishna
+Date: Sept. 22 2015.
+Notes: The code was developed to derive tables from relational databases.
+*/ 
+
+
+
+SELECT
+invites.user_id as sp_usr_id,
+requests.user_id as cn_usr_id,
+invites.request_id,
+invites.invite_id,
+quotes.quote_id,
+strftime('%Y-%m-%d %H:%M:%S', requests.creation_time) as rq_ct,
+strftime('%Y-%m-%d %H:%M:%S', invites.sent_time) as in_st,
+strftime('%Y-%m-%d %H:%M:%S', quotes.sent_time) as qt_st,
+printf("%.2f", ((julianday(quotes.sent_time) - julianday(invites.sent_time)) * 24)) as qt_time,       -- Time difference in hours
+printf("%.2f", ((julianday(invites.sent_time) - julianday(requests.creation_time)) * 24)) as in_time, -- Time difference in hours.
+printf("%.2f", ((julianday(invites.sent_time) - julianday('2013-07-01 00:24:04')) * 24)) as time,
+requests.category_id,
+requests.location_id,
+categories.name,
+locations.name as place
+FROM invites 
+LEFT JOIN requests on invites.request_id = requests.request_id
+LEFT JOIN quotes on invites.invite_id = quotes.invite_id
+LEFT JOIN locations on requests.location_id = locations.location_id
+LEFT JOIN categories on requests.category_id = categories.category_id
+--where sp_usr_id = 13
+ORDER BY sp_usr_id, in_st --qt_st--in_st,
+
+
+
+   /*
+   strftime('%Y-%m-%d', requests.creation_time) as rq_ct,
+   strftime('%Y-%m-%d', invites.sent_time) as in_st,
+   strftime('%Y-%m-%d', quotes.sent_time) as qt_st,
+   */
+
+   /*
+   select * from categories
+   select * from locations
+   select * from users
+   select * from requests
+   select * from invites order by user_id
+   select * from quotes order by sent_time
+   */
+
+   /*
+   requests.creation_time as rq_ct,
+   invites.sent_time as in_st,
+   quotes.sent_time as qt_st,
+   */
+

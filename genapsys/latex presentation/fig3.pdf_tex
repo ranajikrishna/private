@@ -1,0 +1,70 @@
+%% Creator: Inkscape 0.48.3.1, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'fig3.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{521.57480469bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.52717389)%
+    \put(0,0){\includegraphics[width=\unitlength]{fig3.pdf}}%
+    \put(0.05673572,0.32418491){\color[rgb]{1,0,0}\makebox(0,0)[lb]{\smash{μmin. var. turb. sample  }}}%
+    \put(0.05778907,0.48876697){\color[rgb]{1,0,0}\makebox(0,0)[lb]{\smash{μturb. sample  }}}%
+    \put(0.06042916,0.08433656){\color[rgb]{0,0,1}\makebox(0,0)[lb]{\smash{μmin. var. full sample  }}}%
+    \put(0.06148251,0.24891861){\color[rgb]{0,0,1}\makebox(0,0)[lb]{\smash{μfull. sample  }}}%
+    \put(0.16123453,0.08098942){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{ }}}%
+    \put(0.60586633,0.07810467){\color[rgb]{1,0,1}\makebox(0,0)[lb]{\smash{μequi.  }}}%
+    \put(0.29799251,0.02443156){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{w - shrinkage strength}}}%
+    \put(0.31597191,0.0965791){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{(1 - w)}}}%
+    \put(0.31733128,0.34180426){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{(1 - w)}}}%
+    \put(0.31623748,0.48697392){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06732848\unitlength}\raggedright ( w )\end{minipage}}}%
+    \put(0.31772714,0.23682852){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06732848\unitlength}\raggedright ( w )\end{minipage}}}%
+    \put(0.87325082,0.24567457){\color[rgb]{0.16862745,0,0}\makebox(0,0)[lb]{\smash{μrobust.  }}}%
+    \put(0.51230647,0.36259004){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06732848\unitlength}\raggedright ( c )\end{minipage}}}%
+    \put(0.50842007,0.23269551){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06732848\unitlength}\raggedright ( -c )\end{minipage}}}%
+    \put(0.75297193,0.22620077){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06732848\unitlength}\raggedright ( 1 - c )\end{minipage}}}%
+    \put(0.54341883,0.41391841){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{c - blending constant}}}%
+  \end{picture}%
+\endgroup%

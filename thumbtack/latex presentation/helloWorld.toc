@@ -1,0 +1,8 @@
+\beamer@endinputifotherversion {3.33pt}
+\beamer@sectionintoc {1}{Turbulence as a measure of Systemic risk}{3}{0}{1}
+\beamer@sectionintoc {2}{Quantifying Turbulence}{4}{0}{2}
+\beamer@sectionintoc {3}{Full-sample versus ``Real-time" Turbulence Index}{7}{0}{3}
+\beamer@sectionintoc {4}{\relax \fontsize {10}{12}\selectfont \abovedisplayskip 10\p@ plus2\p@ minus5\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6\p@ plus3\p@ minus3\p@ \def \leftmargin \leftmargini \topsep 3\p@ plus2\p@ minus2.5\p@ \parsep 0\p@ \itemsep 3\p@ plus2\p@ minus3\p@ {\leftmargin \leftmargini \topsep 6\p@ plus2\p@ minus2\p@ \parsep 3\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip {Turbulence in Portfolios and in Asset Classes}}{11}{0}{4}
+\beamer@sectionintoc {5}{Turbulence Resistant Portfolios}{16}{0}{5}
+\beamer@sectionintoc {6}{Turbulence and Business Cycles}{23}{0}{6}
+\beamer@sectionintoc {7}{Conclusion}{26}{0}{7}

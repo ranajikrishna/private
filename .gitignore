@@ -1,0 +1,14 @@
+*.csv
+*.txt
+*.numbers
+*.DS_Store
+*.pk
+*.jpg
+*.xlsx
+*.h5
+*.swo
+*.swp
+*.pkl
+*.Rda
+*.zip
+
