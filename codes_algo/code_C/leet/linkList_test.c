@@ -15,7 +15,7 @@ typedef struct node node_t;
 
 node_t *create_new_node(int value){
 /**
- * We use *malloc*, instead of just using static memo. allocation, 
+ * We use *malloc* inside a fxn., instead of just using static memo. allocation, 
  * since static allocation is local to the fxn. This means that 
  * the same memo. address could be assigned every time the allocation 
  * is made. This would result in overwritting the existing 
@@ -66,15 +66,41 @@ int main(int argc, char* argv[])
 	start = tmp;
 
 
-//	node_t *start = NULL;
-//	node_t *tmp;
-//	for (int i=0; i<25; i++) {
-//		tmp = create_new_node(i);
-//		tmp->next = start;
-//		start = tmp;
-//	}
+	// To create and populate a list in a loop.
+	node_t *start = NULL;
+	node_t *tmp;
+	for (int i=0; i<25; i++) {
+		tmp = create_new_node(i);
+		tmp->next = start;
+		start = tmp;
+	}
+
+/**
+ * Note: This will NOT work, because the NULL pointer, `n1`, does 
+ * not point to an address that contains a node of type `node_t`. 
+ * To use a pointer to assign values to a node, the node has to be 
+ * declared, a ptr. should point to it and then be used to assign 
+ * values to it. To just use pointers one has to use the `malloc` 
+ * fxn. 
+*/
+	// This will NOT work
+	node_t *n1 = NULL;
+	n1->value = 45
+	n1->next = NULL;
+
+	// This WILL work.
+	node_t n1;
+	node_t *p1 = &n1;
+	p1->value = 45
+	p1->next = NULL;
+
+	// This WILL work as well.
+	node_t *p1 = malloc(sizeof(node_t));
+	p1->value = 45
+	p1->next = NULL;
 
 	printlist(start);
+
 
 	return (0);
 }
