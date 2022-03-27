@@ -1,6 +1,6 @@
 /**
-* Given an array of integers nums and an integer target, return indices of the 
-* two numbers such that they add up to target.
+* Given an array of integers nums and an integer target, return indices 
+* (or the number themselves) of the two numbers such that they add up to target.
 * You may assume that each input would have exactly one solution, and you may 
 * not use the same element twice.
 * You can return the answer in any order.
@@ -37,8 +37,8 @@ struct Pair *check_pair(int *array, int target)
 		} else if (*(array+j) > diff){
 			j--;
 		} else {
-			s->a = (array+j); 
-			s->b = (array+i);
+			s->a = &j; //(array+j); 
+			s->b = &i; //(array+i);
 			return s;
 		}
 

@@ -4,7 +4,7 @@
 
 
 struct Index {
-	str *str;
+	char *str;
 };
 
 typedef struct Index ind;

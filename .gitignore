@@ -6,9 +6,13 @@
 *.jpg
 *.xlsx
 *.h5
+*.hdf5
 *.swo
 *.swp
 *.pkl
 *.Rda
 *.zip
-
+*.png
+*.json
+*.pickle
+*.pkl
