@@ -10,9 +10,8 @@
 *.swo
 *.swp
 *.pkl
+*.pickle
 *.Rda
 *.zip
 *.png
 *.json
-*.pickle
-*.pkl
