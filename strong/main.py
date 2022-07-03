@@ -5,7 +5,10 @@ import pandas as pd
 import numpy as np
 
 import plot as plt
-import interp_spline as intsp
+import interp_spline as intrp_spl
+import interp_stl as intrp_stl
+import interp_mean as intrp_mean
+import interp_seasonal as intrp_sea
 
 
 def missing_data(all_data):
@@ -50,7 +53,11 @@ def main():
 #    missing_data(station_data)
 
     # === Interpolate ===
-    intsp.interpolate_spline(wide,['air_temp_51101h'])
+#    intrp_spl.interpolate_spline(wide,['air_temp_51101h'])
+#    intrp_stl.interpolate_stl(wide,['air_temp_51101h'])
+#    intrp_mean.interpolate_rollmean(wide,['air_temp_51101h'])
+    intrp_sea.interpolate_seasonal(wide,['air_temp_51101h'])
+    
     
 
     return 
