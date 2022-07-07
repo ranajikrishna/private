@@ -5,10 +5,12 @@ import pandas as pd
 import numpy as np
 
 import plot as plt
-import interp_spline as intrp_spl
-import interp_stl as intrp_stl
-import interp_mean as intrp_mean
+#import interp_spline as intrp_spl
+#import interp_stl as intrp_stl
+#import interp_mean as intrp_mean
 import interp_seasonal as intrp_sea
+import forecast_fft as fcst_fft
+import performance_simulation as per_sim 
 
 
 def missing_data(all_data):
@@ -32,8 +34,6 @@ def get_data():
     wide.index = pd.to_datetime(wide.index)
     return buoy, wide
 
-
-
 def main():
 
     buoy, wide = get_data()
@@ -56,13 +56,14 @@ def main():
 #    intrp_spl.interpolate_spline(wide,['air_temp_51101h'])
 #    intrp_stl.interpolate_stl(wide,['air_temp_51101h'])
 #    intrp_mean.interpolate_rollmean(wide,['air_temp_51101h'])
-    intrp_sea.interpolate_seasonal(wide,['air_temp_51101h'])
+    print(wide.columns)
+    fcst_data = intrp_sea.interpolate_seasonal(wide,['wave_height_51201h'])
     
-    
-
+    # === Forecast ===
+    fcst_fft.compute_fft(fcst_data)
+    k, up = 10, 0.1
+    per_sim.simulate(fcst_data,k,up)
     return 
-
-
 
 if __name__ == '__main__':
     status = main()
