@@ -12,11 +12,14 @@ def forecast():
 
     return 
 
-def reconstruct_signal(data, frac_harm, train_pc=0.8, plot=False):
-
+def reconstruct_signal(data, frac_harm, train_pc=0.8, test_month=pd.Timestamp('2017-01-31'), fcst_prd= 1, plot=False):
     col = 'wave_height_51201h'
-    data_train = data.iloc[:int(data.shape[0]*train_pc)]
-    data_test = data.iloc[int(data.shape[0]*train_pc):]
+    data_train = data.loc[:test_month-pd.DateOffset(months=fcst_prd+1)]
+    #data_test = data.loc[test_month-pd.DateOffset(months=fcst_prd):test_month][1:]
+    data_test = data.loc[test_month-pd.DateOffset(months=fcst_prd):][1:]
+    
+   # data_train = data.iloc[:int(data.shape[0]*train_pc)]
+   # data_test = data.iloc[int(data.shape[0]*train_pc):]
     n = data_train.shape[0]
     t = np.arange(0,n)
     p = np.polyfit(t, data_train[col], 1)      # find linear trend in x
@@ -27,14 +30,15 @@ def reconstruct_signal(data, frac_harm, train_pc=0.8, plot=False):
     f = fftpack.fftfreq(n)[0:int(n/2)]      # frequencies
     indexes = list(range(int(n/2)))
     # sort indexes by amplitude in descending order.
-    indexes.sort(key = lambda i: np.absolute(data_fft[i]))
-    indexes.reverse()
+    indexes.sort(key = lambda i: np.absolute(f[i]))
+#    indexes.reverse()
  
     n_harm = len(data_fft)
     harm = int(np.ceil(frac_harm * n_harm))
-    t = np.arange(0, n + data_test.shape[0])
+    #t = np.arange(0, n + data_test.shape[0])
+    t = np.arange(0, data.shape[0])
     restored_sig = np.ones(t.size) * np.absolute(data_fft[0])/n
-    for i in indexes[1:1 + harm]:
+    for i in indexes[1:harm]:
         ampli = 2 * np.absolute(data_fft[i]) / n   # amplitude
         phase = np.angle(data_fft[i])              # phase
         restored_sig += ampli * np.cos(2 * np.pi * f[i] * t + phase)
@@ -60,11 +64,12 @@ def compute_fft(data):
     n = data.shape[0]
     t = np.arange(0, n)
     p = np.polyfit(t, data[col], 1)         # find linear trend in x
-    data_detrend = data[col] - p[0] * t - p[1]
+    data_detrend = data[col] - p[0] * t #- p[1]
 
     from scipy import fftpack
     data_fft = fftpack.fft(np.array(data_detrend))
 #    tmp_coeff = 2/n * abs(data_fft)
+    #coeff = 2/n * abs(data_fft[0:int(n/2)])
     coeff = 2/n * abs(data_fft[0:int(n/2)])
 #    fr = n/2 * np.linspace(0,1,int(n/2))
     f = fftpack.fftfreq(n)[0:int(n/2)]        # frequencies
