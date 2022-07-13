@@ -32,7 +32,7 @@ def simulate(data, k, up):
         mae,max_,std_dev =  [],[],[]
         tpr,fpr,tnr,fnr = [],[],[],[]
         for test_mth in test_range:
-            res = fcst_fft.reconstruct_signal(data, frac,test_month=test_mth,fcst_prd=prd, plot=True)
+            res,per_harm = fcst_fft.reconstruct_signal(data, frac,test_month=test_mth,fcst_prd=prd, plot=True)
             test = res.loc[test_mth-pd.DateOffset(months=prd):test_mth][1:]
             test['tp'] = (test[col] >= 3) & (test['restored'] >= 3)
             test['fp'] = (test[col] < 3) & (test['restored'] >= 3)

@@ -11,7 +11,7 @@ def plot(all_data, type='buoy'):
     if type=='wide':
         fig, ax = plt.subplots()
         plt.style.use('seaborn')
-        ax.plot(all_data.index, all_data['air_temp_51101h'],label='air_temp_51101h')
+        ax.plot(all_data.index, all_data[col],label=col)
         ax.xaxis.set_major_locator(mdates.YearLocator())
         ax.xaxis.set_major_formatter(mdates.DateFormatter('\n%Y'))
         ax.xaxis.set_minor_locator(mdates.MonthLocator())

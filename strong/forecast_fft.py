@@ -35,6 +35,7 @@ def reconstruct_signal(data, frac_harm, train_pc=0.8, test_month=pd.Timestamp('2
  
     n_harm = len(data_fft)
     harm = int(np.ceil(frac_harm * n_harm))
+    print(harm)
     #t = np.arange(0, n + data_test.shape[0])
     t = np.arange(0, data.shape[0])
     restored_sig = np.ones(t.size) * np.absolute(data_fft[0])/n
@@ -54,8 +55,7 @@ def reconstruct_signal(data, frac_harm, train_pc=0.8, test_month=pd.Timestamp('2
 
     data['restored'] = restored_sig
     data['error'] = data[col] - data['restored']
-    pdb.set_trace()
-    return data
+    return data, harm
 
 
 def compute_fft(data):

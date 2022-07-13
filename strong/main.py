@@ -11,6 +11,9 @@ import plot as plt
 import interp_seasonal as intrp_sea
 import forecast_fft as fcst_fft
 import performance_simulation as per_sim 
+import roc_rolling_window as roc_window 
+import roc_train_test as roc_tr
+import correlation_analysis as ca 
 
 
 def missing_data(all_data):
@@ -62,7 +65,10 @@ def main():
     # === Forecast ===
     fcst_fft.compute_fft(fcst_data)
     k, up = 10, 0.1
-    per_sim.simulate(fcst_data,k,up)
+#    per_sim.simulate(fcst_data,k,up)
+#    roc_window.roc_sim(fcst_data,k,up)
+    roc_tr.roc_sim(fcst_data,k,up)
+    ca.compute_correlation(data)
     return 
 
 if __name__ == '__main__':
