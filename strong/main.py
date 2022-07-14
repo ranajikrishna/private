@@ -9,6 +9,7 @@ import plot as plt
 #import interp_stl as intrp_stl
 #import interp_mean as intrp_mean
 import interp_seasonal as intrp_sea
+import data_aggregation as da
 import forecast_fft as fcst_fft
 import performance_simulation as per_sim 
 import roc_rolling_window as roc_window 
@@ -62,13 +63,18 @@ def main():
     print(wide.columns)
     fcst_data = intrp_sea.interpolate_seasonal(wide,['wave_height_51201h'])
     
+    # === Data aggregation ===
+    tmp = da.data_agg(fcst_data,'week')
+
+
+
     # === Forecast ===
     fcst_fft.compute_fft(fcst_data)
     k, up = 10, 0.1
 #    per_sim.simulate(fcst_data,k,up)
 #    roc_window.roc_sim(fcst_data,k,up)
-    roc_tr.roc_sim(fcst_data,k,up)
-    ca.compute_correlation(data)
+#    roc_tr.roc_sim(fcst_data,k,up)
+    ca.compute_correlation(fcst_data)
     return 
 
 if __name__ == '__main__':
