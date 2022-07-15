@@ -64,17 +64,15 @@ def main():
     fcst_data = intrp_sea.interpolate_seasonal(wide,['wave_height_51201h'])
     
     # === Data aggregation ===
-    tmp = da.data_agg(fcst_data,'week')
-
-
+    data_agg = da.data_agg(fcst_data,['wave_height_51201h'])
 
     # === Forecast ===
-    fcst_fft.compute_fft(fcst_data)
+#    fcst_data = fcst_fft.compute_fft(data_agg)
     k, up = 10, 0.1
 #    per_sim.simulate(fcst_data,k,up)
 #    roc_window.roc_sim(fcst_data,k,up)
-#    roc_tr.roc_sim(fcst_data,k,up)
-    ca.compute_correlation(fcst_data)
+    roc_tr.roc_sim(data_agg,k,up)
+#    ca.compute_correlation(fcst_data)
     return 
 
 if __name__ == '__main__':
