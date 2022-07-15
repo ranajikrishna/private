@@ -8,12 +8,9 @@ import matplotlib.pyplot as plt
 
 from scipy import fftpack
 
-def forecast():
-
-    return 
-
 def reconstruct_signal(data, frac_harm, train_pc=0.8, test_month=pd.Timestamp('2017-01-31'), fcst_prd= 1, plot=False):
     col = 'wave_height_51201h'
+#    col = 'surf_count'
     data_train = data.loc[:test_month-pd.DateOffset(months=fcst_prd+1)]
     #data_test = data.loc[test_month-pd.DateOffset(months=fcst_prd):test_month][1:]
     data_test = data.loc[test_month-pd.DateOffset(months=fcst_prd):][1:]
