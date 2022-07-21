@@ -8,12 +8,14 @@ import matplotlib.pyplot as plt
 
 from scipy import fftpack
 
-def reconstruct_signal(data, frac_harm, train_pc=0.8, test_month=pd.Timestamp('2017-01-31'), fcst_prd= 1, plot=False):
-    col = 'wave_height_51201h'
+
+def reconstruct_signal(data, frac_harm, train_pc=0.8, test_month=pd.Timestamp('2017-01-01'), col='wave_height_51201h', fcst_prd=0, plot=False):
+#col = 'wave_height_51201h'
 #    col = 'surf_count'
-    data_train = data.loc[:test_month-pd.DateOffset(months=fcst_prd+1)]
-    #data_test = data.loc[test_month-pd.DateOffset(months=fcst_prd):test_month][1:]
-    data_test = data.loc[test_month-pd.DateOffset(months=fcst_prd):][1:]
+    #data_train = data.loc[:test_month-pd.DateOffset(months=fcst_prd+1)]
+    data_train = data.loc[:test_month-pd.DateOffset(months=fcst_prd)]
+    #data_test = data.loc[test_month-pd.DateOffset(months=fcst_prd):]
+    data_test = data.loc[test_month:]
     
    # data_train = data.iloc[:int(data.shape[0]*train_pc)]
    # data_test = data.iloc[int(data.shape[0]*train_pc):]
@@ -38,6 +40,9 @@ def reconstruct_signal(data, frac_harm, train_pc=0.8, test_month=pd.Timestamp('2
     restored_sig = np.ones(t.size) * np.absolute(data_fft[0])/n
     for i in indexes[1:harm]:
         ampli = 2 * np.absolute(data_fft[i]) / n   # amplitude
+        if (i ==n_harm-1) and (t.size%2 ==0):
+            tmp = 0
+            ampli = np.absolute(data_fft[i]) / n   # amplitude
         phase = np.angle(data_fft[i])              # phase
         restored_sig += ampli * np.cos(2 * np.pi * f[i] * t + phase)
     
@@ -45,9 +50,11 @@ def reconstruct_signal(data, frac_harm, train_pc=0.8, test_month=pd.Timestamp('2
     
     if plot:
         plt.close()
-        plt.scatter(data.index, restored_sig, c='r', marker='o', label = 'extrapolation')
+        plt.scatter(data.index, restored_sig, c='r', marker='o', label = 'estimate')
         plt.plot(data_train.index, data_train[col], 'b', label = 'train', linewidth = 3)
         plt.plot(data_test.index, data_test[col], 'g', label = 'test', linewidth = 3)
+        plt.xlabel('Date')
+        plt.ylabel('Wave height')
         plt.legend()
 
     data['restored'] = restored_sig
@@ -76,7 +83,7 @@ def compute_fft(data):
     ax[0].plot(data[col])    # plot time series
     ax[0].set_ylabel('Wave hgt.')
     ax[0].set_xlabel('Date')
-    ax[0].set_title('Station: 51201h; Wave height')
+    ax[0].set_title('Station: 51201h; Season of wave height')
 
     ax[1].stem(f,coeff)     # plot freq domain
     ax[1].set_ylabel('Coefficient')

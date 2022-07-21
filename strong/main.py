@@ -10,6 +10,7 @@ import plot as plt
 #import interp_mean as intrp_mean
 import interp_seasonal as intrp_sea
 import data_aggregation as da
+import decomposition as de
 import forecast_fft as fcst_fft
 import performance_simulation as per_sim 
 import roc_rolling_window as roc_window 
@@ -65,13 +66,22 @@ def main():
     
     # === Data aggregation ===
     data_agg = da.data_agg(fcst_data,['wave_height_51201h'])
+#    data_agg['wave_height_51201h'] = data_agg['wave_height_51201h'] * (data_agg.surf_day)/7
 
+    # === Trend and Season decomposition === 
+    res = de.data_decompose(data_agg)#,model='multiplicative')
+    
+    # === Compute FFT ===
+    data_trd = pd.DataFrame(res.trend).rename(columns={'trend':'wave_height_51201h'})
+    data_sea = pd.DataFrame(res.seasonal).rename(columns={'season':'wave_height_51201h'})
+    data_red = pd.DataFrame(res.resid).rename(columns={'resid':'wave_height_51201h'})
+    fcst_data = fcst_fft.compute_fft(data_red)
     # === Forecast ===
-#    fcst_data = fcst_fft.compute_fft(data_agg)
     k, up = 10, 0.1
 #    per_sim.simulate(fcst_data,k,up)
 #    roc_window.roc_sim(fcst_data,k,up)
-    roc_tr.roc_sim(data_agg,k,up)
+#    roc_tr.roc_sim(data_agg,k,up,component=True)
+    roc_tr.roc_sim([data_agg,res],k,up,component=True,plot=False)
 #    ca.compute_correlation(fcst_data)
     return 
 
