@@ -21,11 +21,7 @@ def event_pop(data):
 
 def roc_sim(data,k,up,col='wave_height_51201h',component=False,plot=False):
 
-#    col = 'wave_height_51201h'
-    #data[col] = data[col] * (data.surf_day)/7
-#    col = 'surf_count'
     frac_list =[0.001, 0.01, 0.1, 0.2, 0.4, 0.8, 1]
-#    frac_list =[0.1,0.11,0.12,0.13,0.14,0.15,0.16,0.17,0.18,0.19]
     frac_list = list(itertools.product(frac_list,repeat=3))
 #    frac_list=[(0.4,0.1,0.2)]
     test_mth = pd.Timestamp('2016-01-01')
@@ -46,29 +42,18 @@ def roc_sim(data,k,up,col='wave_height_51201h',component=False,plot=False):
             data_red = data_red.loc[data_trd.index]
             res_trd, per_harm = fcst_fft.reconstruct_signal(data_trd,frac_trd,test_month=test_mth,plot=False)
             res_sea, per_harm = fcst_fft.reconstruct_signal(data_sea,frac_sea,test_month=test_mth,plot=False)
-#            res_red, per_harm = fcst_fft.reconstruct_signal(data_red,frac,test_month=test_mth,plot=True)
             res = res_trd + res_sea
+
             res[col] += data[1].resid   # Add residual to the `col` (and not to `reconstruct` to prevent leakage.)
-#            res = res_trd * res_sea
-#            res[col] = res[col] * data[1].resid
             res['surf_day'] = data[0]['surf_day']
             res['surf_bit'] = np.ceil(res.surf_day/8)
-            #res['good_surf'] = res['error']*res['surf_bit']
-#            data_red[col] = data_red[col]*res['surf_bit']
-           # res.loc[res['good_surf'] <0,'good_surf']=0
-#            data_red.loc[data_red[col] <0,col]=0
-           # data_surf = pd.DataFrame(res['good_surf'],columns=['good_surf'])
-           # res_good, per_harm = fcst_fft.reconstruct_signal(data_surf,0.8,test_month=test_mth,col='good_surf',plot=True)
             res_red, per_harm = fcst_fft.reconstruct_signal(data_red,frac_red,test_month=test_mth,plot=False)
-           # res['restored'] += res_good['restored']
             res['restored'] += res_red['restored']
             res['error'] = res[col] - res['restored'] 
-        #test = test.append(res.loc[test_mth-pd.DateOffset(months=1):][1:])
+
         test = test.append(res.loc[test_mth:])
-#        test = test.groupby([pd.Grouper(key='date',freq='W-MON')]).apply(event_pop)
         test['surf'] = 0
         test.loc[test['surf_day']>=3,'surf'] = 1
-#        test.loc[test['surf_count']>=1,'surf'] = 1
 
         # Receiver Operating Characteristic curve
         fpr, tpr, thr = metrics.roc_curve(test['surf'],test['restored'],pos_label=1)
@@ -80,7 +65,6 @@ def roc_sim(data,k,up,col='wave_height_51201h',component=False,plot=False):
         pre, rec, th = precision_recall_curve(test['surf'],test['restored'],pos_label=1)
         prc_auc = auc(rec,pre)
         prc_stat = pd.DataFrame({'pre':pre,'rec':rec})
-        #summary_auc[frac]={'roc': roc_auc, 'prc': prc_auc}
         summary_auc[(frac_trd,frac_sea,frac_red)]={'roc': roc_auc, 'prc': prc_auc}
         tmp_prc.append(prc_auc)
 
@@ -99,8 +83,6 @@ def roc_sim(data,k,up,col='wave_height_51201h',component=False,plot=False):
             axs[1].grid(which='major',color='white',linewidth=0.5)
             axs[1].legend()
             axs[1].set_title('Precision-Recall curve. AUC = ' + str(round(prc_auc,3)))
-            test['pred_surf']=0
-            test.loc[test.restored>=0.423695668616361,'pred_surf']=1  
 
             # ==== Plot ROC/PRC Curves ====
             fig, axs = plt.subplots(2,tight_layout=True)
@@ -117,8 +99,8 @@ def roc_sim(data,k,up,col='wave_height_51201h',component=False,plot=False):
 
 #        pdf.savefig(fig)
 
-    pdf.close()
-#    pd.DataFrame(summary_auc).to_excel("summary_auc_xxxxxx.xlsx")
+#    pdf.close()
+    pd.DataFrame(summary_auc).to_excel("summary_auc_xxxxxx.xlsx")
     pdb.set_trace()
         
     return 
