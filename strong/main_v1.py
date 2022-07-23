@@ -5,15 +5,11 @@ import pandas as pd
 import numpy as np
 
 import plot as plt
-#import interp_spline as intrp_spl
-#import interp_stl as intrp_stl
-#import interp_mean as intrp_mean
 import interp_seasonal as intrp_sea
 import data_aggregation as da
 import decomposition as de
 import forecast_fft as fcst_fft
 import performance_simulation as per_sim 
-import roc_rolling_window as roc_window 
 import roc_train_test as roc_tr
 import correlation_analysis as ca 
 import other_tech as ot
@@ -50,9 +46,8 @@ def main():
     station_data['51101h'] = buoy.loc[buoy['station_id']=='51101h']
     station_data['51201h'] = buoy.loc[buoy['station_id']=='51201h']
 
-    # === Examine corr ===
+    # === Examine correlations ===
 #    ot.examine_correl(wide)
-
 
 
     # === Plots ===
@@ -63,15 +58,11 @@ def main():
 #    missing_data(station_data)
 
     # === Interpolate ===
-#    intrp_spl.interpolate_spline(wide,['air_temp_51101h'])
-#    intrp_stl.interpolate_stl(wide,['air_temp_51101h'])
-#    intrp_mean.interpolate_rollmean(wide,['air_temp_51101h'])
     print(wide.columns)
     fcst_data = intrp_sea.interpolate_seasonal(wide,['wave_height_51201h'])
     
     # === Data aggregation ===
     data_agg = da.data_agg(fcst_data,['wave_height_51201h'])
-#    data_agg['wave_height_51201h'] = data_agg['wave_height_51201h'] * (data_agg.surf_day)/7
 
     # === Trend and Season decomposition === 
     res = de.data_decompose(data_agg)#,model='multiplicative')
@@ -81,17 +72,10 @@ def main():
 #    data_sea = pd.DataFrame(res.seasonal).rename(columns={'season':'wave_height_51201h'})
 #    data_red = pd.DataFrame(res.resid).rename(columns={'resid':'wave_height_51201h'})
 #    fcst_data = fcst_fft.compute_fft(data_red)
+
     # === Forecast ===
     k, up = 10, 0.1
-#    per_sim.simulate(fcst_data,k,up)
-#    roc_window.roc_sim(fcst_data,k,up)
-#    roc_tr.roc_sim(data_agg,k,up,component=True)
-
     roc_tr.roc_sim([data_agg,res],k,up,component=True,plot=False)
-#    ca.compute_correlation(fcst_data)
-
-
-
 
     return 
 
