@@ -2,7 +2,6 @@
 import random
 import pdb
 
-
 def fair(pair):
 '''
 Given an unfair coin, where probability of HEADS coming up is P and TAILS 

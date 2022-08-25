@@ -14,7 +14,7 @@ def distance(cord,org,k):
     #dist = dict.fromkeys(str(pair),0)
 
     for pair in cord:
-        dist[str(pair)] = np.sqrt((pair[0] - org[0])**2 + (pair[1] - org[1])**2)
+        dist[(pair[0],pair[1])] = np.sqrt((pair[0] - org[0])**2 + (pair[1] - org[1])**2)
           
     pdb.set_trace()
     return sorted(dist,keys=(dist.values()),reverse=True)

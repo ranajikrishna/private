@@ -17,13 +17,16 @@ class Solution:
             len1, len2 = len2, len1
 
         total = len1+len2
-        half = (len1+len2-1)//2
+#        half = (len1+len2-1)//2
+        half = (len1+len2)//2 - 1
 
         list1_start = 0
         list1_end = len1-1 
+#        list1_end = len1
         while True:
             idx1 = (list1_end - list1_start)//2
-            idx2 = half - idx1 - 1 
+#            idx2 = half - idx1 - 1 
+            idx2 = half - idx1
 
             list1_left = list1[idx1] if idx1>0 else -float('inf')
             list1_right = list1[idx1+1] if idx1+1<len1 else float('inf')

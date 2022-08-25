@@ -1,9 +1,17 @@
 
+import pdb
+import sys
 import pandas as pd
 import matplotlib as plt
 import numpy as np
-import pdb
-from statsmodels import regression
+
+import xarray as xr
+
+import qnt.ta as qnta
+import qnt.backtester as qnbt
+import qnt.data as qndata
+
+#from statsmodels import regression
 
 
 
@@ -86,10 +94,20 @@ def mySettings():
 
     return settings
 
+
+def main():
+    pdb.set_trace()
+    sett = mySettings()
+
+    return 
+
+
 # Evaluate trading system defined in current file.
 if __name__ == '__main__':
+    status = main()
+    sys.exit()
     
-    from quantiacsToolbox.quantiacsToolbox import runts, optimize
+    #from quantiacsToolbox.quantiacsToolbox import runts, optimize
 
     results = runts(__file__)
     #optimize(__file__)
