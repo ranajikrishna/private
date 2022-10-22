@@ -1,3 +1,4 @@
+#conda activate qntdev
 
 import pdb
 import sys
@@ -44,8 +45,6 @@ def main():
     pair_df = st.strat_one(data_df,sel_pair[idx]) 
     ret_df = cr.compute_returns(pair_df)
     df = cm.compute_maxdrw(ret_df)
-
-
     return 
 
 

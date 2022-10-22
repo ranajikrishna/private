@@ -11,8 +11,6 @@ import matplotlib.pyplot as plt
 def strat_one(data_df,pair):
     pair_df = pd.DataFrame({pair[0]:data_df[pair[0]], \
                                     pair[1]:data_df[pair[1]]})
-#    pair_df['ratio'] = pair_df[pair[0]]/pair_df[pair[1]]
-
     win_reg = 180
     exog = sm.add_constant(pair_df[pair[1]])
     endog = pair_df[pair[0]]
@@ -23,40 +21,43 @@ def strat_one(data_df,pair):
     pair_df = pair_df.join(params)
     
     win_zsc = win_reg
-   # pair_df['zscore'] = (pair_df['ratio']-pair_df['ratio'].rolling(win_zsc).mean())/ \
-   #                                pair_df['ratio'].rolling(win_zsc).std()
 
     pair_df['zscore'] = (pair_df['spread']-pair_df['spread'].rolling(win_zsc).mean())/ \
                                     pair_df['spread'].rolling(win_zsc).std()
-#    zscore = []
-#    for itr in range(win,pair_df.shape[0]):
-#        zscore.append((pair_df.iloc[itr]['ratio'] - pair_df.iloc[0:itr]['ratio'].mean())/\
-#                pair_df.iloc[0:itr]['ratio'].std())
-#    zscore = [np.nan]*win + zscore
-#    pair_df['zscore'] = zscore
     pair_df['signal'] = 0
 
+    # Trade-start conditions.
     up,dw = 2,-2
-    stop_loss = 3
-    pair_df.loc[pair_df.zscore>=up,'signal'] = -1
-    pair_df.loc[pair_df.zscore<=dw,'signal'] = 1
+    pair_df.loc[((pair_df.zscore>=up) & (pair_df.hedge_ratio>=0.01)),'signal'] = -1 # Short spread
+    pair_df.loc[((pair_df.zscore<=dw) & (pair_df.hedge_ratio>=0.01)),'signal'] = 1  # Long spread
 
+    # Identify trade-end conditions.
+    limit_zscore_up = 3
+    limit_zscore_dw = 0.5
+    limit_hedge = 0.1  
+    pair_df.loc[abs(pair_df.zscore)>=limit_zscore_up,'signal'] = 0
+    pair_df.loc[abs(pair_df.zscore)<=limit_zscore_dw,'signal'] = 0
+    pair_df.loc[pair_df['hedge_ratio']<limit_hedge,'signal'] = 0
+
+    # Populate trade signal. 
     flag = 0
     for idx,row in pair_df.iterrows():
-#        if idx==pd.Timestamp('2016-10-26'):
+#        if idx==pd.Timestamp('2013-12-16'):
 #            pdb.set_trace()
-        if (flag == 0 and pair_df.loc[idx]['signal'] ==0):
+        if (flag == 0 and row.signal==0):
             continue;
         elif (flag != 0):
-            if (abs(row.zscore)<0.5 or abs(row.zscore)>=stop_loss):
+            # Trade has started: check if it needs to continue.
+            if (abs(row.zscore)<limit_zscore_dw or abs(row.zscore)>=limit_zscore_up or row.hedge_ratio<=limit_hedge):
+                # End trade due to end conditions.
                 flag = 0
             else:
+                # Continue trade: populate trade signal.
                 pair_df.loc[idx,'signal'] = flag
         else:
-            flag += pair_df.loc[idx]['signal']
+            # Start trade: update flag.
+            flag += row.signal
             
-    pair_df.loc[abs(pair_df.zscore)>=stop_loss,'signal'] = 0
-    pair_df.loc[pair_df['hedge_ratio']<0.1,'signal'] = 0
     # === Plot === 
     fig, ax1 = plt.subplots() 
     ax1.plot(pair_df[pair[0]],label=pair[0]) 

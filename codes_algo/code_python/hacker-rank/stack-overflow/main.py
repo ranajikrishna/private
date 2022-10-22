@@ -17,6 +17,10 @@ def multinomial_reg(question_train, excerpt_train, topic_train, question_test,\
                                 ,penalty='l2' \
                                 ,C=1.0))])
 
+#    clf = Pipeline([('vect', CountVectorizer()) \
+#                    ,('clf', MultinomialNB(alpha=0.1)
+#                    )])
+
     clf.fit(excerpt_train, topic_train)
     predict=clf.predict(excerpt_test)
 

@@ -24,7 +24,6 @@ def twoSum2(nums: list[int], target: int) -> list[int]:
 
 
 def threeSum(nums: list[int],target: int) -> list[int]:
-
     res = []
     nums.sort()
     for i,k in enumerate(nums):
@@ -43,7 +42,6 @@ def threeSum(nums: list[int],target: int) -> list[int]:
                 l+=1
                 while (l<r and nums[l]==nums[l-1]):
                     l+=1
-
     return res
 
 def main():
