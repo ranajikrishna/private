@@ -36,5 +36,6 @@ bubble_sort <- function(tmpSeq){
 }
 
 # set.seed(10);
-# a <- round(runif(10,0,10));
-# b <- bubble_sort(a);
+ a <- round(runif(10,0,10))
+ b <- bubble_sort(a)
+ 

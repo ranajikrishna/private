@@ -24,6 +24,7 @@ def cointegrated_pairs(data,load=True):
 
         p_values.to_pickle("./p_values_log.pk")
 
+    pdb.set_trace()
     file = open("./p_values_log.pk",'rb')
     p_values = pk.load(file)
     file.close()

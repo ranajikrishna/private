@@ -73,4 +73,5 @@ def strat_one(data_df,pair):
     ax1.grid()
     plt.xticks(rotation=45)
 
-    return pair_df 
+    return pair_df
+

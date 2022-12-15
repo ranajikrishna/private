@@ -30,7 +30,7 @@ def main():
     end_date = '2022-08-01'
     data_df = gds.getData_stocks(start_date,end_date)
     data_df = np.log(data_df)
-    search_pairs = False
+    search_pairs = True
     if search_pairs:
         pairs = cp.cointegrated_pairs(data_df)
 #        pp.plot_pairs(pairs,data_df)

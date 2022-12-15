@@ -53,8 +53,9 @@ class GoldilocksTFIDF(object):
         
         wordbook = dict.fromkeys(self.vocabulary.keys(),0)
         doc_unq = []
-        for word_list in corpus:
-            doc_unq += set(word_list)
+#        for word_list in corpus:
+#            doc_unq += set(word_list)
+        doc_unq = sum(corpus,[])
             
         for term in wordbook.keys():
             wordbook[term] = sum(np.array(doc_unq)==term)
@@ -81,7 +82,7 @@ class GoldilocksTFIDF(object):
         return result
 
 
-with open("/home/coderpad/data/goldilocks.txt", "r") as f:
+with open("./goldilocks.txt", "r") as f:
     # load and view the data
     text = f.read()
     gtfidf = GoldilocksTFIDF()
