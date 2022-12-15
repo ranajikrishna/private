@@ -5,6 +5,18 @@ import pdb
 import random
 
 
+def rand10_new():
+
+    v1,v2=rand7(),rand7()
+    while v1==7:
+        v1=rand7()
+    while v2>5:
+        v2=rand7()
+    if v1<4:
+        return v2
+    else:
+        return v2+5
+
 def rand7() -> int:
     '''
     API: rand7(); this fxn. is provided.
@@ -50,8 +62,9 @@ def main():
     tmp = []    
     tmp2 = []
     for i in range(100000):
-        tmp.append(rand10())
-        tmp2.append(rand7())
+#        tmp.append(rand10())
+#        tmp2.append(rand7())
+        tmp.append(rand10_new())
 
     import matplotlib.pyplot as plt
     plt.hist(tmp,10)

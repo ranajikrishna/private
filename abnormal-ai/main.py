@@ -1,8 +1,30 @@
 
-
 import sys
 import csv
 import pdb
+
+
+
+def tmp():
+
+    dict = {}
+    with open() as file:
+        csv = csv.reader(file)
+
+    for line in csv:
+        if line[0] in dict.keys():
+            if line[2]=='open':
+                a = -1
+            else:
+                a = 1
+            dict[line[0]][0] = dict[line[0]][0]*dict[line[0]][1]+a*line[1]/(dict[line[0][1]+0.5])
+            dict[line[0]][1]+=0.5
+        else:
+            if line[2]=='open':
+                a = -1
+            else:
+                a = 1
+            dict[line[0]] = [a*line[1]*2,0.5]
 
 def get_data():
     '''

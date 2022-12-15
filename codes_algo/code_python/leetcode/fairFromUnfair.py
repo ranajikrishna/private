@@ -2,12 +2,12 @@
 import random
 import pdb
 
-
 def fair(pair):
-'''
-Given an unfair coin, where probability of HEADS coming up is P and TAILS 
-is (1-P), implement a fair coin from the given unfair coin.
-'''
+    '''
+    Given an unfair coin, where probability of HEADS coming up is P and TAILS 
+    is (1-P), implement a fair coin from the given unfair coin.
+    '''
+
     if pair==('H','T') or pair==('T','H'):
         return pair[0]
 
