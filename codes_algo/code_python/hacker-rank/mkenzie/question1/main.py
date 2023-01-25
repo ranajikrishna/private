@@ -7,8 +7,11 @@ import pandas as pd
 
 
 def calcMissin():
+    ''' What should be added to the 0th element in the list s.t. the cumulative sum has a minimum of 1
+    '''
 
-    data =[-5,4,-2,3,1]#,-1,-6,-1,0,5])
+#    data =[-5,4,-2,3,1]#,
+    data = [-1,-6,-1,0,5]
 
     sum_ = data[0]
     tmp = [sum_]
