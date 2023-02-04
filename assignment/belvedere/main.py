@@ -5,8 +5,9 @@ import pdb
 def maxSum(A):
     def findPath(dp,n):
         '''
-        Use maximum path matrix to determine the path to traverse from along
-        the negative slope direction. 
+        Use maximum path matrix (dp) to determine the path to traverse from along
+        the negative slope direction, from source (botton right) to destination
+        (top left).
         '''
         path = []
         r,c = n-1,n-1
@@ -45,8 +46,8 @@ def maxSum(A):
     return [max_sum, findPath(dp,n)]
 
 def main():
-    A = [[1,-2,3,2,1],[1,2,4,-8,2],[2,1,6,4,3],[3,-7,1,0,-4],[4,3,2,2,1]]
-#    A = [[1,3,1],[1,5,1],[4,2,1]]
+#    A = [[1,-2,3,2,1],[1,2,4,-8,2],[2,1,6,4,3],[3,-7,1,0,-4],[4,3,2,2,1]]
+    A = [[1,3,1],[1,5,1],[4,2,1]]
     top_left,top_right,btm_right,btm_left = [],[],[],[]
     n = len(A)//2 + 1
     # Generate 4 sub-matrices from original matrix.
@@ -58,7 +59,11 @@ def main():
         btm_left.append(row[:n])
 
     # Transform sub-matirces so that source-destination are in neg. slope direction. 
-    btm_left,top_right = btm_left[::-1],top_right[::-1]
+    # where source is in bottom right and destination is in top left corners.
+    top_left = top_left[::-1]
+    top_left = [top_left[r][::-1] for r in range(n)]
+    top_right = top_right[::-1]
+    btm_left = [btm_left[r][::-1] for r in range(n)]
     path,max_sum = {},[]
     for quadrant,sub_matrix in enumerate([top_left,top_right,btm_right,btm_left]):  # Iterate in required priority.
         # Get max. sum path value and direction in terms of hor. and vert. movements.
