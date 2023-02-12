@@ -25,14 +25,11 @@ class Solution:
         return dp[-1]
 
     def helper(self,A,i,j,dp):
-        if i < 0 or j < 0:
-            return -10000
-        if i == 0 and j == 0:
-            return A[i][j]
-             
-        if dp[i][j]!='-inf':
-            return dp[i][j]
+        if i < 0 or j < 0: return float('-Inf')
+        if i == 0 and j == 0: return A[i][j]
+        if dp[i][j]!='-inf':  return dp[i][j]
 
+        # Recursion.
         dp[i][j] = A[i][j] + max(self.helper(A,i-1,j,dp),self.helper(A,i,j-1,dp))
         return dp[i][j] 
 
@@ -44,8 +41,8 @@ class Solution:
         The strategy computes the shotest path at all cells.
         '''
         n = len(A)
-        dp = [['-inf' for x in range(n)] for y in range(n)]
-        #dp = [['-inf']*n]*n
+        # For memoization
+        dp = [['-inf' for x in range(n)] for y in range(n)] # -Inf since max.
         return self.helper(A,n-1,n-1,dp)
 
 tmp1 = Solution()
