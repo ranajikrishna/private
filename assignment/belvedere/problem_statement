@@ -1,0 +1,36 @@
+Four CornersProgramming challenge description:
+Your goal for this challenge will be to determine the optimal way to traverse a matrix, starting at one corner and ending at the center.
+For each n x n matrix of integers, where n is an odd integer and n > 1, you will be required to determine the optimal path beginning at any of its corners ( (0, 0), (0, n-1), (n-1, 0), (n-1, n-1) ) and ending at its center ( (n-1)/2, (n-1)/2) ), by moving vertically and horizontally.
+The value in each cell of the matrix represents the number of points you get from visiting the cell.
+A path is considered optimal if it accumulates the most points, given the following constraints:
+
+Each path crosses as few cells in the matrix as possible
+Each path prioritizes moving horizontally before moving vertically in cases where it would otherwise be indifferent
+In the case where there is a tie for the optimal path, return the path based on its starting corner, according to the following priority list (top of the list is preferable to bottom of the list):
+top-left corner
+top-right corner
+bottom-right corner
+bottom-left corner
+Hint: Because each path must reach the center having crossed as few cells as possible, there will only be two "valid directions" that a path can move in. These directions will be based on the path's starting corner. E.g., an optimal path that starts at the top-left corner will only move down and to the right.
+NOTE For Python users, numpy and scipy packages are not available
+Input:
+The n x n matrix of integers. Each row will be separated by a semicolon; each column within a row will be separated by a comma.
+For example:
+1,-2,3,2,1;1,2,4,-8,2;2,1,6,4,3;3,-7,1,0,-4;4,3,2,2,1
+would represent:
+| 1 |-2 | 3 | 2 | 1 |
+| 1 | 2 | 4 |-8 | 2 |
+| 2 | 1 | 6 | 4 | 3 |
+| 3 |-7 | 1 | 0 |-4 |
+| 4 | 3 | 2 | 2 | 1 |
+Output:
+A comma separated list of your moves across the matrix. It is not necessary to state the starting corner of your optimal path, as it can be inferred. Each move should be specified by:
+u => move up
+d => move down
+l => move left
+r => move right
+Example of correct solution to the above matrix:
+l,l,d,d
+Note that in the above solution:
+There was a tie for the optimal path between paths starting in the top-right and bottom-left corner, but the top-right solution was chosen because it has a higher priority
+Although d,d,l,l ties with the optimal path in terms of points, it was not chosen because it prioritizes vertical movement (by going down first instead of left) while the optimal path above prioritizes horizontal movement
