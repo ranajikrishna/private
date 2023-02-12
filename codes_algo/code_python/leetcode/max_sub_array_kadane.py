@@ -42,7 +42,8 @@ def max_sub_array(A):
     including it in subarrays to the right of * will only reduce the value of the
     max. sum subarray. Hence current max is reset to 0.
     
-    https://medium.com/@rsinghal757/kadanes-algorithm-dynamic-programming-how-and-why-does-it-work-3fd8849ed73d
+    https://medium.com/@rsinghal757/kadanes-algorithm-dynamic-programming-how-
+    and-why-does-it-work-3fd8849ed73d
     '''
 
     glo_max,cur_max = float('-inf'),0
