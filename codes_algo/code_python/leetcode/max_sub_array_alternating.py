@@ -34,7 +34,10 @@ class Solution:
     There is only one non-empty subarray, which is [1].
     The alternating subarray sum is 1.
 
-    NOTE: Odd indices are always +ve and evens are always -ve.
+    NOTE: Starting sign of any subarray is +ve. We keep track of two sums, one 
+    starting at 0 (positive sign at 0, pos_sum) and the other starting at 1 (
+    positive sign at 1, neg_sum). The max_val is records the maximum value between
+    these two sums.
     '''
     def maximumAlternatingSubarraySum(self, nums):
         pos_sum, neg_sum, max_val = float("-inf"), float("-inf"), float("-inf")
