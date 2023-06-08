@@ -13,6 +13,10 @@ class Graph:
             self.graph[u].append((v,w))
 
 def dijkstra(graph:Graph, S:str) -> list[int]:
+    '''
+    Generates the shortest path from vertex S to *all* the other vertices that 
+    can be reached from vertex S.
+    '''
     priority_queue = [(0,S)]
     shortest_path = {}
     while priority_queue:
